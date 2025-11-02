@@ -25,6 +25,7 @@ const jwt = require('jsonwebtoken');
 
 // Register
 app.post('/register', async (req, res) => {
+  console.log("trying to register.....");
     const { fullname, email, password } = req.body;
     const hashed = await bcrypt.hash(password, 10);
     try {
@@ -37,6 +38,7 @@ app.post('/register', async (req, res) => {
 
 // Login
 app.post('/login', async (req, res) => {
+      console.log("trying to logging.....");
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password)))
@@ -51,6 +53,8 @@ const Item = require('./models/Item');
 
 // GET all items
 app.get('/items', async (req, res) => {
+    console.log("collecting items.....");
+
   try {
     const items = await Item.find();
     res.json(items);
@@ -62,6 +66,8 @@ app.get('/items', async (req, res) => {
 //add items
 app.post("/addItem", async (req, res) => {
   try {
+      console.log("Adding new item.....");
+
     const { name, picture, price } = req.body;
     const newItem = new Item({ name, picture, price });
     //await db.collection("items").insertOne(newItem);
