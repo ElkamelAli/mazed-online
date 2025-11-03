@@ -79,4 +79,15 @@ app.post("/addItem", async (req, res) => {
   }
 });
 
+
+// PUT /item/:id/increment
+app.put("/item/:id/increment", async (req, res) => {
+  const { id } = req.params;
+  const item = await Item.findById(id);
+  if (!item) return res.status(404).send("Item not found");
+  item.price += 1;
+  await item.save();
+  res.json(item);
+});
+ 
 app.listen(3000, () => console.log("Server running on port 3000"));
