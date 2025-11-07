@@ -5,7 +5,8 @@ const ItemSchema = new mongoose.Schema({
   user: String,
   name: String,
   price: Number,
-  imageUrl: String
+  imageUrl: String,
+  winner: String
 });
 
 module.exports = mongoose.model('Item', ItemSchema);
