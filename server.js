@@ -66,9 +66,10 @@ app.get('/items', async (req, res) => {
 //add items
 app.post("/addItem", async (req, res) => {
   try {
-      console.log("Adding new item.....");
 
     const { fullname, name, picture, price } = req.body;
+    console.log("Adding new item.....");
+
     const newItem = new Item({ fullname, name, picture, price });
     //await db.collection("items").insertOne(newItem);
     const savedItem= await newItem.save();
