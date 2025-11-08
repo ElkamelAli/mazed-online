@@ -67,10 +67,10 @@ app.get('/items', async (req, res) => {
 app.post("/addItem", async (req, res) => {
   try {
 
-    const {user, name, price, picture } = req.body;
+    const {user, name, price, picture, winner} = req.body;
     console.log("Adding new item.....");
 
-    const newItem = new Item({user, name,  price, picture });
+    const newItem = new Item({user, name,  price, picture, winner });
     //await db.collection("items").insertOne(newItem);
     const savedItem= await newItem.save();
     res.status(201).json({ message: "Item added successfully" });
