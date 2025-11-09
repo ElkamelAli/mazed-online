@@ -91,5 +91,16 @@ app.put("/item/:id/:email/increment", async (req, res) => {
   await item.save();
   res.json(item);
 });
+// get /item/:id/increment
+app.put("/item/:email/mywins", async (req, res) => {
+  const { email } = req.params;
+  try {
+    const items = await Item.find(winner == email);
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch items" });
+  }
+
+});
  
 app.listen(3000, () => console.log("Server running on port 3000"));
