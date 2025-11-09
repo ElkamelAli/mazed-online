@@ -95,7 +95,7 @@ app.put("/item/:id/:email/increment", async (req, res) => {
 app.get("/item/:email/mywins", async (req, res) => {
   const { email } = req.params;
   try {
-    const items = await Item.find(winner == email);
+    const items = await Item.find({winner : email});
     res.json(items);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch items" });
