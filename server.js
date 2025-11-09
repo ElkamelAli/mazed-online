@@ -92,7 +92,7 @@ app.put("/item/:id/:email/increment", async (req, res) => {
   res.json(item);
 });
 // get /item/:id/increment
-app.put("/item/:email/mywins", async (req, res) => {
+app.get("/item/:email/mywins", async (req, res) => {
   const { email } = req.params;
   try {
     const items = await Item.find(winner == email);
