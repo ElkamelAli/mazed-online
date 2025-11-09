@@ -94,13 +94,18 @@ app.put("/item/:id/:email/increment", async (req, res) => {
 // get /item/:id/increment
 app.get("/item/:email/mywins", async (req, res) => {
   const { email } = req.params;
+  if (!email) return res.status(400).json({ error: "Email parameter required" });
+
   try {
-    const items = await Item.find({winner : email});
+    const items = await Item.find({ winner: email }).lean();
+    if (!items.length) {
+      return res.status(404).json({ message: "No wins found for this user" });
+    }
     res.json(items);
   } catch (err) {
+    console.error("Error fetching items:", err);
     res.status(500).json({ error: "Failed to fetch items" });
   }
-
 });
  
 app.listen(3000, () => console.log("Server running on port 3000"));
