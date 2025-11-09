@@ -92,7 +92,7 @@ app.put("/item/:id/:email/increment", async (req, res) => {
   res.json(item);
 });
 // get /item/:id/increment
-app.get("/item/:email/mywins", async (req, res) => {
+app.get("/mywins/:email", async (req, res) => {
   const { email } = req.params;
   if (!email) return res.status(400).json({ error: "Email parameter required" });
 
