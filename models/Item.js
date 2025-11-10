@@ -5,7 +5,7 @@ const ItemSchema = new mongoose.Schema({
   user: String,
   name: String,
   price: Number,
-  imageUrl: String,
+  picture: String,
   winner: String
 });
 
