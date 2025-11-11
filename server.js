@@ -110,4 +110,20 @@ app.get("/mywins/:email", async (req, res) => {
   }
 });
  
+app.get("/users/:email", async (req, res) => {
+  const { email } = req.params;
+  if (!email) return res.status(400).json({ error: "Email parameter required" });
+
+  try {
+    const users = await User.find({ email: email }).lean();
+    if (!users.length) {
+      return res.status(404).json({ message: "No user found" });
+    }
+    res.json(users);
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+ 
 app.listen(3000, () => console.log("Server running on port 3000"));
