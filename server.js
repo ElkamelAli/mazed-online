@@ -19,7 +19,8 @@ const User = mongoose.model('User', new mongoose.Schema({
     email: { type: String, unique: true },
     password: String,
     phone: String,
-    picture: String
+    picture: String,
+    solde: Number
 }));
 
 const bcrypt = require('bcryptjs');
@@ -28,10 +29,10 @@ const jwt = require('jsonwebtoken');
 // Register
 app.post('/register', async (req, res) => {
   console.log("trying to register.....");
-    const { fullname, email, password, phone, picture } = req.body;
+      const { fullname, email, password, phone, picture } = req.body;
     const hashed = await bcrypt.hash(password, 10);
     try {
-        const user = await User.create({ fullname, email, password: hashed, phone, picture });
+        const user = await User.create({ fullname, email, password: hashed, phone, picture, solde:100 });
         res.json({ success: true });
     } catch (err) {
         res.status(400).json({ error: "Email already exists" });
