@@ -105,14 +105,16 @@ app.get("/mywins/:email", async (req, res) => {
     if (!items.length) {
       return res.status(404).json({ message: "No wins found for this user" });
     }
-     items.forEach(item => {
-        s=s+item.price;
-    });
+
+     for (let i=0; i<items.length; i++){
+        s=s+items[i].price;
+    }
     const user=User.findOne({email: email }).lean();
     user.solde=user.solde- s;
-    user.save();
-
+    await user.save();
     res.json(items);
+
+
   } catch (err) {
     console.error("Error fetching items:", err);
     res.status(500).json({ error: "Failed to fetch items" });
