@@ -97,6 +97,7 @@ app.put("/item/:id/:email/increment", async (req, res) => {
 // get /item/:id/increment
 app.get("/mywins/:email", async (req, res) => {
   const { email } = req.params;
+   s=0.0;
   if (!email) return res.status(400).json({ error: "Email parameter required" });
 
   try {
@@ -104,6 +105,13 @@ app.get("/mywins/:email", async (req, res) => {
     if (!items.length) {
       return res.status(404).json({ message: "No wins found for this user" });
     }
+     items.forEach(item => {
+        s=s+item.price;
+    });
+    const user=User.findOne({email: email }).lean();
+    user.solde=user.solde- s;
+    user.save();
+
     res.json(items);
   } catch (err) {
     console.error("Error fetching items:", err);
