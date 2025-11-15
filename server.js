@@ -20,6 +20,7 @@ const User = mongoose.model('User', new mongoose.Schema({
     password: String,
     phone: String,
     picture: String,
+    account: Number,
     solde: Number
 }));
 
@@ -32,7 +33,7 @@ app.post('/register', async (req, res) => {
       const { fullname, email, password, phone, picture } = req.body;
     const hashed = await bcrypt.hash(password, 10);
     try {
-        const user = await User.create({ fullname, email, password: hashed, phone, picture, solde:100 });
+        const user = await User.create({ fullname, email, password: hashed, phone, picture, account:100, solde:100 });
         res.json({ success: true });
     } catch (err) {
         res.status(400).json({ error: "Email already exists" });
@@ -112,8 +113,7 @@ app.get("/mywins/:email", async (req, res) => {
 
 
     const user= await User.findOne({email });
-    console.log("user name:  ",user.email);
-    s=100.0 - s;
+    s=user.account - s;
     const result= await User.updateOne({email: email},{$set: {solde: s}});
     res.json(items);
 
