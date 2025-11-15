@@ -110,8 +110,9 @@ app.get("/mywins/:email", async (req, res) => {
         s=s+items[i].price;
     }
     const user=User.findOne({email: email }).lean();
-    s=user['solde']- s;
-    await User.updateOne({email: email},{$set: {solde: s}});
+    console.log("user name:  ",user['email']);
+   // s=user['solde']- s;
+   // await User.updateOne({email: email},{$set: {solde: s}});
     res.json(items);
 
 
