@@ -111,7 +111,7 @@ app.get("/mywins/:email", async (req, res) => {
     }
     const user=User.findOne({email: email }).lean();
     user.solde=user.solde- s;
-    await user.updateOne();
+    await user.updateOne({solde: user.solde});
     res.json(items);
 
 
