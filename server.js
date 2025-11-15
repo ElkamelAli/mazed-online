@@ -109,7 +109,8 @@ app.get("/mywins/:email", async (req, res) => {
      for (let i=0; i<items.length; i++){
         s=s+items[i].price;
     }
-        console.log("s:  ", s);
+    console.log("email:  ", email);    
+    console.log("s:  ", s);
 
     const user=User.findOne({email });
     console.log("user name:  ",user.email);
