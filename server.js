@@ -74,7 +74,6 @@ app.post("/addItem", async (req, res) => {
     const {user, name, price, picture, winner} = req.body;
     console.log("Adding new item.....");
     const createdat = new Date();
-
     // Add 72 hours (3 days)
     const endsat = new Date(createdat.getTime() + 72 * 60 * 60 * 1000);
     const newItem = new Item({user, name,  price, picture, winner, createdat, endsat });
