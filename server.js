@@ -73,8 +73,11 @@ app.post("/addItem", async (req, res) => {
 
     const {user, name, price, picture, winner} = req.body;
     console.log("Adding new item.....");
+    const createdat = new Date();
 
-    const newItem = new Item({user, name,  price, picture, winner });
+    // Add 72 hours (3 days)
+    const endsat = new Date(created_at.getTime() + 72 * 60 * 60 * 1000);
+    const newItem = new Item({user, name,  price, picture, winner, createdat, endsat });
     //await db.collection("items").insertOne(newItem);
     const savedItem= await newItem.save();
     res.status(201).json({ message: "Item added successfully" });
@@ -108,7 +111,7 @@ app.get("/mywins/:email", async (req, res) => {
     }
 
      for (let i=0; i<items.length; i++){
-      if(items[i].winner != items[i].email){       
+      if(items[i].winner != items[i].email ) {       
          s=s+items[i].price;
 }
     }

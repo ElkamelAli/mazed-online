@@ -6,7 +6,9 @@ const ItemSchema = new mongoose.Schema({
   name: String,
   price: Number,
   picture: String,
-  winner: String
+  winner: String,
+  created_at:{ type: Date},
+  ends_at:{ type: Date}
 });
 
 module.exports = mongoose.model('Item', ItemSchema);
