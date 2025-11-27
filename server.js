@@ -106,13 +106,13 @@ app.get("/mywins/:email", async (req, res) => {
   if (!email) return res.status(400).json({ error: "Email parameter required" });
 
   try {
-    const items = await Item.find({ winner: email }).lean();
+    const items = await Item.find({ winner: email });
     if (!items.length) {
       return res.status(404).json({ message: "No wins found for this user" });
     }
 
      for (let i=0; i<items.length; i++){
-      if(items[i].winner != items[i].email) {       
+      if(items[i].winner != items[i].name) {       
          s=s+items[i].price;
 }
     }
