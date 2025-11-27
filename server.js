@@ -111,7 +111,7 @@ app.get("/mywins/:email", async (req, res) => {
     }
 
      for (let i=0; i<items.length; i++){
-      if(items[i].winner != items[i].email && items[i].email== email) {       
+      if(items[i].winner != items[i].email && items[i].winner == email) {       
          s=s+items[i].price;
 }
     }
