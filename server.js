@@ -111,7 +111,7 @@ app.get("/mywins/:email", async (req, res) => {
     }
 
      for (let i=0; i<items.length; i++){
-      if(items[i].winner != items[i].email && items[i].winner == email) {       
+      if(items[i].winner != items[i].email) {       
          s=s+items[i].price;
 }
     }
@@ -120,7 +120,7 @@ app.get("/mywins/:email", async (req, res) => {
     const user= await User.findOne({email });
     s=user.account - s;
     const result= await User.updateOne({email: email},{$set: {solde: s}});
-    res.json(items);
+    return res.status(200).json(items);
 
 
   } catch (err) {
