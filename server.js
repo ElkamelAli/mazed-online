@@ -112,7 +112,7 @@ app.get("/mywins/:email", async (req, res) => {
     }
 
      for (let i=0; i<items.length; i++){
-      if(items[i].winner != items[i].name) {       
+      if(items[i].winner != items[i].user) {       
          s=s+items[i].price;
 }
     }
