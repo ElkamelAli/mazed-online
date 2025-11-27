@@ -138,10 +138,10 @@ app.get("/users/:email", async (req, res) => {
     if (!users.length) {
       return res.status(404).json({ message: "No user found" });
     }
-    res.json(users);
+    return res.status(200).json(users);
   } catch (err) {
     console.error("Error fetching users:", err);
-    res.status(500).json({ error: "Failed to fetch users" });
+    return res.status(500).json({ error: "Failed to fetch users" });
   }
 });
  
