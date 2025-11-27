@@ -34,9 +34,9 @@ app.post('/register', async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
     try {
         const user = await User.create({ fullname, email, password: hashed, phone, picture, account:100, solde:100 });
-        res.json({ success: true });
+        return res.json({ success: true });
     } catch (err) {
-        res.status(400).json({ error: "Email already exists" });
+        return res.status(400).json({ error: "Email already exists" });
     }
 });
 
@@ -49,7 +49,7 @@ app.post('/login', async (req, res) => {
         return res.status(401).json({ error: "Invalid credentials" });
 
     const token = jwt.sign({ id: user._id }, "secret_key");
-    res.json({ token });
+   return  res.status(200).json({ token });
 });
 
 //items
@@ -61,9 +61,9 @@ app.get('/items', async (req, res) => {
 
   try {
     const items = await Item.find();
-    res.json(items);
+    return res.status(200).json(items);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch items" });
+    return res.status(500).json({ error: "Failed to fetch items" });
   }
 });
 
@@ -80,10 +80,11 @@ app.post("/addItem", async (req, res) => {
     const newItem = new Item({user, name,  price, picture, winner, createdat, endsat });
     //await db.collection("items").insertOne(newItem);
     const savedItem= await newItem.save();
-    res.status(201).json({ message: "Item added successfully" });
+    return res.status(201).json({ message: "Item added successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Failed to add item" });
     console.log(error);
+
+    return res.status(500).json({ error: "Failed to add item" });
   }
 });
 
@@ -96,7 +97,7 @@ app.put("/item/:id/:email/increment", async (req, res) => {
   item.price += 1;
   item.winner = email;
   await item.save();
-  res.json(item);
+  return res.status(200).json(item);
 });
 // get /item/:id/increment
 app.get("/mywins/:email", async (req, res) => {
