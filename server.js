@@ -4,9 +4,12 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 
 const app = express();
+
 app.use(bodyParser.json({ limit: "10mb" })); // allow big payloads
 app.use(express.json());
 app.use(cors());
+const http = require("http").createServer(app);
+
 const io = require("socket.io")(http, {
   cors: { origin: "*" }
 });
