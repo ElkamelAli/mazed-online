@@ -7,7 +7,9 @@ const app = express();
 app.use(bodyParser.json({ limit: "10mb" })); // allow big payloads
 app.use(express.json());
 app.use(cors());
-
+const io = require("socket.io")(http, {
+  cors: { origin: "*" }
+});
 // Connect MongoDB
 mongoose.connect("mongodb+srv://alielkamel:ali123@mazed.3ehwz89.mongodb.net/?retryWrites=true&w=majority&appName=Mazed")
   .then(() => console.log("MongoDB connected"))
@@ -80,6 +82,8 @@ app.post("/addItem", async (req, res) => {
     const newItem = new Item({user, name,  price, picture, winner, createdat, endsat });
     //await db.collection("items").insertOne(newItem);
     const savedItem= await newItem.save();
+    io.emit("newItem", savedItem);
+
     return res.status(201).json({ message: "Item added successfully" });
   } catch (error) {
     console.log(error);
